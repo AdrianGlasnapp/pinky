@@ -1,0 +1,3 @@
+include ':pinky'
+
+rootProject.name = "pinky-parent"

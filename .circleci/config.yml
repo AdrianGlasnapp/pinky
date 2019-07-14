@@ -1,0 +1,98 @@
+version: 2.1
+executors:
+  default-executor:
+    docker:
+      - image: circleci/android:api-28-alpha
+    working_directory: ~/code
+    environment:
+      JVM_OPTS: -Xmx4096m
+jobs:
+  prepare-dependencies:
+    executor: default-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "pinky/build.gradle" }}
+      - run:
+          name: Chmod permissions
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "pinky/build.gradle" }}
+  unit-tests:
+    executor: default-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "pinky/build.gradle" }}
+      - run:
+          name: Chmod permissions
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Run Tests
+          command: ./gradlew lint test
+      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+          path: pinky/build/test-results
+          destination: test-results/
+  android-tests:
+    executor: default-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "pinky/build.gradle" }}
+      - run:
+          name: Chmod permissions
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Android Tests
+          command: echo "[Not configured]"
+  code-coverage:
+    executor: default-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "pinky/build.gradle" }}
+      - run:
+          name: Chmod permissions
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Code Coverage
+          command: echo "[Not configured]"
+  build:
+    executor: default-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "pinky/build.gradle" }}
+      - run:
+          name: Chmod permissions
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Initial build
+          command: ./gradlew clean assembleRelease --no-daemon --stacktrace
+      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: pinky/build/outputs/apk/
+          destination: apks/
+      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+workflows:
+  version: 2.1
+  build-test-and-deploy:
+    jobs:
+      - prepare-dependencies
+      - unit-tests:
+          requires:
+            - prepare-dependencies
+      - android-tests:
+          requires:
+            - prepare-dependencies
+      - code-coverage:
+          requires:
+            - unit-tests
+            - android-tests
+      - build:
+          requires:
+            - code-coverage
