@@ -32,7 +32,7 @@ This ID generation is based on IMEI or MEID. Value survives factory resets on de
 
 Custom Supplier
 ---------------
-If you wish to use custom factor for UUID generation you can easily create your own supplier. Create a class that implements the ``IdSupplierFactory`` interface and pass in an instance when building Pinky.
+If you wish to use custom factor for UUID generation you can easily create your own supplier. Create a class that implements the ``SupplierFactory`` interface and pass in an instance when building Pinky.
 
 Usage
 --------
