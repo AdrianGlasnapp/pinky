@@ -1,4 +1,4 @@
-package io.glass.pinky.hardwareids
+package io.glass.pinky.phoneid
 
 import android.os.Build
 import android.telephony.TelephonyManager
@@ -13,7 +13,7 @@ internal class OreoPhoneIdSupplier(private val telephonyManager: TelephonyManage
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @RequiresPermission(READ_PHONE_STATE)
-    override fun provide(): String {
+    override fun supply(): String {
         if (telephonyManager.phoneType == TelephonyManager.PHONE_TYPE_GSM) {
             return if (telephonyManager.imei != null) telephonyManager.imei else Strings.EMPTY
         } else if (telephonyManager.phoneType == TelephonyManager.PHONE_TYPE_CDMA) {

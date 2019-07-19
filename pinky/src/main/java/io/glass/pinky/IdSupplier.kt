@@ -1,6 +1,12 @@
 package io.glass.pinky
 
+/**
+ * Responsible for accessing specific identifier which might be used for UUID generation.
+ */
 interface IdSupplier {
 
-    fun provide(): String
+    /**
+     * Returns specific device identifier.
+     */
+    fun supply(): String
 }

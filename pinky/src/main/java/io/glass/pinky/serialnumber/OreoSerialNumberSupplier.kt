@@ -12,7 +12,7 @@ internal class OreoSerialNumberSupplier : IdSupplier {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @RequiresPermission(READ_PHONE_STATE)
-    override fun provide(): String {
+    override fun supply(): String {
         val serial = if (Build.UNKNOWN != Build.getSerial()) Build.getSerial() else Strings.EMPTY
         if (serial.isEmpty()) {
             return Strings.EMPTY

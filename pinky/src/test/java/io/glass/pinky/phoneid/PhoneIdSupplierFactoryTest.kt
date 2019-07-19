@@ -1,4 +1,4 @@
-package io.glass.pinky.hardwareids
+package io.glass.pinky.phoneid
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider

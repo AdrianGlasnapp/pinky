@@ -12,7 +12,7 @@ internal class SerialNumberSupplier : IdSupplier {
 
     @SuppressLint("HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
-    override fun provide(): String {
+    override fun supply(): String {
         val serial = if (Build.SERIAL != null) Build.SERIAL else Strings.EMPTY
         val board = if (Build.BOARD != null) Build.BOARD else Strings.EMPTY
         return board + serial

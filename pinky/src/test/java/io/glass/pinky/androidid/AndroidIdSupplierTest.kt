@@ -27,7 +27,7 @@ class AndroidIdSupplierTest {
         val androidIdProvider = AndroidIdSupplier(context)
         Settings.Secure.putString(contentResolver, Settings.Secure.ANDROID_ID, ANDROID_ID)
 
-        val observed = androidIdProvider.provide()
+        val observed = androidIdProvider.supply()
 
         assertEquals(ANDROID_ID, observed)
     }
@@ -36,7 +36,7 @@ class AndroidIdSupplierTest {
     fun provideShouldReturnAndroidIdIfItWasNotSet() {
         val androidIdProvider = AndroidIdSupplier(context)
 
-        val observed = androidIdProvider.provide()
+        val observed = androidIdProvider.supply()
 
         assertEquals(Strings.EMPTY, observed)
     }
