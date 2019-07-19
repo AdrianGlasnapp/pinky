@@ -49,7 +49,8 @@ and to generate UUID:
 ```java
 pinky.generate();
 ```
-Pinky will then use all available IDs.
+Pinky will then use all available IDs to generate UUID.  
+
 Dependency
 --------
 TODO
