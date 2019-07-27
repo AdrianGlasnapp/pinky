@@ -1,0 +1,47 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.3"
+}
+
+def fileFilter = [
+        '**/*Test*.*',
+        '**/AutoValue_*.*',
+        '**/*JavascriptBridge.class',
+        '**/R.class',
+        '**/R$*.class',
+        '**/Manifest*.*',
+        'android/**/*.*',
+        '**/BuildConfig.*',
+        '**/*$ViewBinder*.*',
+        '**/*$ViewInjector*.*',
+        '**/Lambda$*.class',
+        '**/Lambda.class',
+        '**/*Lambda.class',
+        '**/*Lambda*.class',
+        '**/*$InjectAdapter.class',
+        '**/*$ModuleAdapter.class',
+        '**/*$ViewInjector*.class'
+]
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) { //we use "debug" build type for test coverage (can be other)
+    group = "reporting"
+    description = "Generate unified Jacoco code coverage report"
+
+    reports {
+        xml.enabled = true
+        html.enabled = false
+        csv.enabled = false
+    }
+
+    def javaDebugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug", excludes: fileFilter) //we use "debug" build type for test coverage (can be other)
+    def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([javaDebugTree, kotlinDebugTree]) // we need to target both java and kotlin build folder
+    executionData = fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec", //we use "debug" build type for test coverage (can be other)
+            "outputs/code-coverage/connected/*coverage.ec"
+    ])
+}
