@@ -23,7 +23,7 @@ class SerialNumberSupplierTest {
         ReflectionHelpers.setStaticField(android.os.Build::class.java, "BOARD", null)
         ReflectionHelpers.setStaticField(android.os.Build::class.java, "SERIAL", null)
 
-        val observed = serialNumberSupplier.provide()
+        val observed = serialNumberSupplier.supply()
 
         assertEquals(EMPTY_STRING, observed)
     }
@@ -34,7 +34,7 @@ class SerialNumberSupplierTest {
         ReflectionHelpers.setStaticField(android.os.Build::class.java, "BOARD", BOARD)
         ReflectionHelpers.setStaticField(android.os.Build::class.java, "SERIAL", SERIAL)
 
-        val observed = serialNumberSupplier.provide()
+        val observed = serialNumberSupplier.supply()
 
         assertEquals(BOARD + SERIAL, observed)
     }

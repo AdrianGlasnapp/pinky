@@ -7,10 +7,10 @@ import android.telephony.TelephonyManager
 import androidx.test.core.app.ApplicationProvider
 import io.glass.pinky.androidid.AndroidIdSupplierFactory
 import io.glass.pinky.androidid.AndroidIdSupplierTest.Companion.ANDROID_ID
-import io.glass.pinky.hardwareids.OreoPhoneIdSupplierTest.Companion.IMEI
-import io.glass.pinky.hardwareids.OreoPhoneIdSupplierTest.Companion.MEID
-import io.glass.pinky.hardwareids.PhoneIdSupplierFactory
-import io.glass.pinky.hardwareids.PhoneIdSupplierTest.Companion.DEVICE_ID
+import io.glass.pinky.phoneid.OreoPhoneIdSupplierTest.Companion.IMEI
+import io.glass.pinky.phoneid.OreoPhoneIdSupplierTest.Companion.MEID
+import io.glass.pinky.phoneid.PhoneIdSupplierFactory
+import io.glass.pinky.phoneid.PhoneIdSupplierTest.Companion.DEVICE_ID
 import io.glass.pinky.serialnumber.OreoSerialNumberSupplierTest.Companion.BOARD
 import io.glass.pinky.serialnumber.OreoSerialNumberSupplierTest.Companion.SERIAL
 import io.glass.pinky.serialnumber.SerialNumberSupplierFactory
@@ -44,7 +44,7 @@ class PinkyTest {
     }
 
     @Config(sdk = [26])
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = NoAvailableIdException::class)
     fun `generate() throws exception if there is not any ID available`() {
         val pinky = Pinky.Builder()
             .addIdSupplierFactory(SerialNumberSupplierFactory.create())

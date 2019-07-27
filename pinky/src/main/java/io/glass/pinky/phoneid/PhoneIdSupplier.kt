@@ -1,4 +1,4 @@
-package io.glass.pinky.hardwareids
+package io.glass.pinky.phoneid
 
 import android.Manifest.permission.READ_PHONE_STATE
 import android.annotation.SuppressLint
@@ -11,7 +11,7 @@ internal class PhoneIdSupplier(private val telephonyManager: TelephonyManager) :
 
     @SuppressLint("HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
-    override fun provide(): String {
+    override fun supply(): String {
         return telephonyManager.deviceId ?: Strings.EMPTY
     }
 }

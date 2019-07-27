@@ -1,4 +1,4 @@
-package io.glass.pinky.hardwareids
+package io.glass.pinky.phoneid
 
 import android.content.Context
 import android.telephony.TelephonyManager
@@ -33,7 +33,7 @@ class OreoPhoneIdSupplierTest {
         shadowTelephonyManager.setPhoneType(TelephonyManager.PHONE_TYPE_GSM)
         shadowTelephonyManager.setImei(IMEI)
 
-        val observed = oreoPhoneIdSupplier.provide()
+        val observed = oreoPhoneIdSupplier.supply()
 
         assertEquals(IMEI, observed)
     }
@@ -44,7 +44,7 @@ class OreoPhoneIdSupplierTest {
         shadowTelephonyManager.setPhoneType(TelephonyManager.PHONE_TYPE_GSM)
         shadowTelephonyManager.setImei(null)
 
-        val observed = oreoPhoneIdSupplier.provide()
+        val observed = oreoPhoneIdSupplier.supply()
 
         assertEquals(EMPTY_STRING, observed)
     }
@@ -55,7 +55,7 @@ class OreoPhoneIdSupplierTest {
         shadowTelephonyManager.setPhoneType(TelephonyManager.PHONE_TYPE_CDMA)
         shadowTelephonyManager.setMeid(MEID)
 
-        val observed = oreoPhoneIdSupplier.provide()
+        val observed = oreoPhoneIdSupplier.supply()
 
         assertEquals(MEID, observed)
     }
@@ -66,7 +66,7 @@ class OreoPhoneIdSupplierTest {
         shadowTelephonyManager.setPhoneType(TelephonyManager.PHONE_TYPE_CDMA)
         shadowTelephonyManager.setMeid(null)
 
-        val observed = oreoPhoneIdSupplier.provide()
+        val observed = oreoPhoneIdSupplier.supply()
 
         assertEquals(EMPTY_STRING, observed)
     }
@@ -76,7 +76,7 @@ class OreoPhoneIdSupplierTest {
     fun provideReturnsEmptyStringWhenThereIsNoAvailableId() {
         shadowTelephonyManager.setPhoneType(TelephonyManager.PHONE_TYPE_NONE)
 
-        val observed = oreoPhoneIdSupplier.provide()
+        val observed = oreoPhoneIdSupplier.supply()
 
         assertEquals(EMPTY_STRING, observed)
     }

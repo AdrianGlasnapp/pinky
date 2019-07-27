@@ -1,4 +1,4 @@
-package io.glass.pinky.hardwareids
+package io.glass.pinky.phoneid
 
 import android.content.Context
 import android.telephony.TelephonyManager
@@ -32,7 +32,7 @@ class PhoneIdSupplierTest {
     fun provideReturnsEmptyStringWhenSerialIsNull() {
         shadowTelephonyManager.setDeviceId(null)
 
-        val observed = phoneIdSupplier.provide()
+        val observed = phoneIdSupplier.supply()
 
         assertEquals(EMPTY_STRING, observed)
     }
@@ -42,7 +42,7 @@ class PhoneIdSupplierTest {
     fun provideReturnsSerialWhenSerialIsPresent() {
         shadowTelephonyManager.setDeviceId(DEVICE_ID)
 
-        val observed = phoneIdSupplier.provide()
+        val observed = phoneIdSupplier.supply()
 
         assertEquals(DEVICE_ID, observed)
     }
