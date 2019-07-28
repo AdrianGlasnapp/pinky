@@ -61,7 +61,7 @@ jobs:
           command: sudo chmod +x ./gradlew
       - run:
           name: Code Coverage
-          command: echo "[Not configured]"
+          command: ./gradlew createDebugCoverageReport jacocoTestReport sonarqube
   build:
     executor: default-executor
     steps:
