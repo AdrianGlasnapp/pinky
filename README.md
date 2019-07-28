@@ -1,5 +1,6 @@
 Pinky
 ============
+[![CircleCI](https://circleci.com/gh/AdrianGlasnapp/pinky.svg?style=svg)](https://circleci.com/gh/AdrianGlasnapp/pinky) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=AdrianGlasnapp_pinky&metric=ncloc)](https://sonarcloud.io/dashboard?id=AdrianGlasnapp_pinky) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AdrianGlasnapp_pinky&metric=coverage)](https://sonarcloud.io/dashboard?id=AdrianGlasnapp_pinky)  
 
 Pinky helps to identify a particular device by generating UUID based on hardware data.
 
